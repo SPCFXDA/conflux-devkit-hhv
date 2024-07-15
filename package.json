@@ -27,11 +27,10 @@
     "eslint": "^9.7.0",
     "globals": "^15.8.0",
     "hardhat": "^2.18.0",
+    "js-conflux-sdk": "^2.4.7",
     "prettier-plugin-solidity": "1.1.3",
     "ts-node": "^10.9.2",
-    "typescript-eslint": "^7.16.0",
-    "hardhat-conflux": "^0.0.2",
-    "js-conflux-sdk": "^2.4.7"
+    "typescript-eslint": "^7.16.0"
   },
   "overrides": {
     "eslint": "^9.7.0"

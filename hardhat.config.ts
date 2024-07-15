@@ -5,7 +5,6 @@ import type { HardhatUserConfig } from "hardhat/types";
 import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomicfoundation/hardhat-ignition-viem";
 import "@nomicfoundation/hardhat-viem";
-import "hardhat-conflux";
 
 import { readFileSync } from "fs";
 const secret = `0x${readFileSync("/opt/conflux/genesis_secrets.txt", "utf-8").split(/\r?\n/)[0]}`;
