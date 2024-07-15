@@ -1,46 +1,62 @@
-# Conflux DevKit Template
+# Conflux DevKit HardHat Ignition Viem
 
-## Overview
+## Description
 
-This project is Hardhat's viem sample project enhanced with Hardhat Ignition.
+This project extends Hardhat's viem sample project with Hardhat Ignition for Conflux eSpace and js-conflux-sdk for Conflux Core.
 
-## Deploying
+## Table of Contents
 
-To run the Ignition deploy against the ephemeral hardhat network:
+- [Installation](#installation)
+- [Usage](#usage)
 
-```shell
-npx hardhat ignition deploy ./ignition/modules/LockModule.js
+## Installation
+
+To install the package, use npm:
+
+```bash
+npm install
 ```
 
-## Test
+## Usage
 
-To run the hardhat tests using Ignition:
+### Local Chain
 
-```shell
-npm run test
+First, start the local network with the following command:
+
+```bash
+npm run chain
 ```
 
-This repository serves as a template for the Conflux DevKit. Before using it, make sure to customize the following files:
+This will start the local Conflux node and fund the genesis accounts. The Hardhat config will use the first account (0) as the default deployer. Once the chain is running, you can open another terminal and use the following commands:
 
-- **README.md** (this file)
+```bash
+genesis_list
+```
 
-- **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)**:
+This command will list the available genesis addresses.
 
-  - Change the email in the `Enforcement` section (placeholder: `YOUR@EMAIL.HERE`).
+```bash
+genesis_espace
+```
 
-- **[CONTRIBUTING.md](CONTRIBUTING.md)**:
+This command will transfer 1000 CFX to the eSpace addresses to enable local code deployment. Since the chain saves the blocks, these commands are only needed once until all the funds are spent or the Docker image is rebuilt.
 
-  - Change the GitHub user in the `Solve an issue` section (placeholder: `GITHUBUSER`).
+For more details, refer to the [Conflux Devkit README](https://github.com/SPCFXDA/conflux-devkit/blob/main/README.md).
 
-- **[pull_request_template.md](.github/pull_request_template.md)**:
+Once the accounts are funded and the chain is running, you can invoke the deployment examples with the following commands:
 
-  - Change the GitHub user in the `Additional Information` section (placeholder: `GITHUBUSER`).
+### Deploy to eSpace
 
-- **[config.yml](.github/ISSUE_TEMPLATE/config.yml)**:
+```bash
+npm run deploy_espace
+```
 
-  - Change the GitHub user in the URLs (placeholder: `GITHUBUSER`).
+This will use [LockModule.ts](/ignition/modules/LockModule.ts) with Ignition to deploy the contract on the local eSpace.
 
-- **[LICENSE](LICENSE)**:
-  - Change the GitHub user (placeholder: `GITHUBUSER`).
+### Deploy to Core
 
-Additionally, customize the repository as needed, including the **[.gitignore](.gitignore)** and other relevant files.
+```bash
+npm run deploy_core
+```
+
+This will use [LockDeploy_Core.ts](/scripts/LockDeploy_Core.ts) with js-conflux-sdk to deploy on the local Core.
