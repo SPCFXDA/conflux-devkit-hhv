@@ -17,6 +17,33 @@ const deployerPrivateKey = process.env.DEPLOYER_PRIVATE_KEY ? [process.env.DEPLO
 const config: HardhatUserConfig = {
   solidity: "0.8.19",
   defaultNetwork: "confluxESpaceLocal",
+  etherscan: {
+    apiKey: {
+      confluxCoreTestnet: "<api-key>",
+      confluxCore: "<api-key>",
+      confluxESpaceTestnet: "<api-key>",
+      confluxESpace: "<api-key>",
+
+    },
+    customChains: [
+      {
+        network: "confluxESpace",
+        chainId: 1030,
+        urls: {
+          apiURL: 'https://evmapi.confluxscan.net',
+          browserURL: 'https://evm.confluxscan.io/',
+        }
+      },
+      {
+        network: "confluxESpaceTestnet",
+        chainId: 71,
+        urls: {
+          apiURL: 'https://evmapi-testnet.confluxscan.io/api/',
+          browserURL: 'https://evmtestnet.confluxscan.io/',
+        },
+      }
+    ]
+  },
   networks: {
     // View the networks that are pre-configured.
     // If the network you are looking for is not here you can add new network settings
