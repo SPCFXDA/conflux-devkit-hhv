@@ -15,3 +15,5 @@ ignition/deployments
 .cache
 .local
 .openvscode-server
+.devcontainer/conflux/devkit/dist/
+.devcontainer/conflux/devkit/node_modules/

@@ -1,29 +1,49 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+import { task, vars } from "hardhat/config";
 import type { HardhatUserConfig } from "hardhat/types";
-
 import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomicfoundation/hardhat-ignition-viem";
 import "@nomicfoundation/hardhat-viem";
+import "@nomicfoundation/hardhat-toolbox-viem";
 
-import { readFileSync } from "fs";
-const genesis = readFileSync("/opt/conflux/genesis_secrets.txt", "utf-8")
-  .split(/\r?\n/)
-  .filter(line => line.length > 0)
-  .map(line => `0x${line}`);
+import { SetupTask, Start } from "devkit";
 
-const deployerPrivateKey = process.env.DEPLOYER_PRIVATE_KEY ? [process.env.DEPLOYER_PRIVATE_KEY] : genesis;
+
+task("node", "Start the local Conflux development node").setAction(async () => {
+  await new Start().run({ logs: true });
+});
+
+
+export class HardHatSetup extends SetupTask {
+  generateSecrets() {
+    if (this.secretExist()) {
+      this.secrets = this.readSecrets();
+      return;
+    }
+    if(vars.has("DEPLOYER_PRIVATE_KEY") ) {
+      this.secrets.push(vars.get("DEPLOYER_PRIVATE_KEY"));
+    }
+    // Generate 5 random accounts and store their private keys (without '0x' prefix) in the secrets array
+    for (let i = 0; i < 5; i++) {
+      const randomAccount = this.randomAccount();
+      this.secrets.push(randomAccount.privateKey);
+    }
+    this.writeSecrets();
+  }
+  getSecrets() {
+    this.generateSecrets();
+    return this.secrets;
+  }
+}
+
+let deployerPrivateKey: string[] = new HardHatSetup().getSecrets();
 
 const config: HardhatUserConfig = {
   solidity: "0.8.19",
-  defaultNetwork: "confluxESpaceLocal",
+  defaultNetwork: "hardhat",
   etherscan: {
     apiKey: {
-      confluxCoreTestnet: "<api-key>",
-      confluxCore: "<api-key>",
       confluxESpaceTestnet: "<api-key>",
       confluxESpace: "<api-key>",
-
     },
     customChains: [
       {

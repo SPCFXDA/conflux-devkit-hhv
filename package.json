@@ -19,6 +19,7 @@
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.7",
     "@nomicfoundation/hardhat-ignition-viem": "latest",
     "@nomicfoundation/hardhat-network-helpers": "1.0.10",
+    "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
     "@nomicfoundation/hardhat-viem": "2.0.0",
     "@types/chai": "^4.3.16",
     "@types/mocha": "^10.0.7",
@@ -37,6 +38,7 @@
     "eslint": "^9.7.0"
   },
   "dependencies": {
+    "devkit": "file:../../opt/devkit",
     "dotenv": "^16.4.5",
     "envfile": "^7.1.0"
   }
