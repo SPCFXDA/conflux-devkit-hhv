@@ -8,6 +8,6 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ["artifacts/*", "cache/*"]
-  }
+    ignores: ["artifacts/*", "cache/*"],
+  },
 ];
