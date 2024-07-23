@@ -16,32 +16,35 @@ To install the package, use npm:
 ```bash
 npm install
 ```
+Adittionaly to enable hardhat cli completion use the following command:
+
+```
+hardhat-completion install
+```
+follow the instruction and select `bash` and `y`, to reload the shell, write `bash` in the terminal.
 
 ## Usage
 
 ### Local Chain
 
-First, start the local network with the following command:
+The system will auto generate 5 privatekeys, if you want to add your development private keys to the system use the following command before starting the node:
 
-```bash
-npm run chain
+```
+hh vars set DEPLOYER_PRIVATE_KEY
 ```
 
-This will start the local Conflux node and fund the genesis accounts. The Hardhat config will use the first account (0) as the default deployer. Once the chain is running, you can open another terminal and use the following commands:
+to start the development node you can use the following command:
 
 ```bash
-genesis_list
+hh node
 ```
 
-This command will list the available genesis addresses.
-
-```bash
-genesis_espace
+This will start the local Conflux node and fund the genesis accounts on core, to have funds also on the eSpace evm you can run the following command:
+```
+devkit --espace-genesis
 ```
 
-This command will transfer 1000 CFX to the eSpace addresses to enable local code deployment. Since the chain saves the blocks, these commands are only needed once until all the funds are spent or the Docker image is rebuilt.
-
-For more details, refer to the [Conflux Devkit README](https://github.com/SPCFXDA/conflux-devkit/blob/main/README.md).
+The `devkit` utility is available, for more details, refer to the [Conflux Devkit README](https://github.com/SPCFXDA/conflux-devkit/blob/main/README.md).
 
 Once the accounts are funded and the chain is running, you can invoke the deployment examples with the following commands:
 
