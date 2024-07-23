@@ -1,10 +1,11 @@
 // loopNetworks.ts
-import { HardhatRuntimeEnvironment } from "hardhat/types";
+import hre from "hardhat";
 
 async function main() {
-  const hre: HardhatRuntimeEnvironment = require("hardhat");
   const networks = hre.config.networks;
-  const networkNames = Object.keys(networks).filter(element =>(element !== "hardhat" && element !== "localhost"));
+  const networkNames = Object.keys(networks).filter(
+    (element) => element !== "hardhat" && element !== "localhost",
+  );
 
   for (const networkName of networkNames) {
     console.log(networkName);
@@ -18,7 +19,6 @@ main()
     console.error(error);
     process.exit(1);
   });
-
 
 // import {Task } from "devkit";
 

@@ -16,11 +16,13 @@ To install the package, use npm:
 ```bash
 npm install
 ```
+
 Adittionaly to enable hardhat cli completion use the following command:
 
 ```
 hardhat-completion install
 ```
+
 follow the instruction and select `bash` and `y`, to reload the shell, write `bash` in the terminal.
 
 ## Usage
@@ -40,6 +42,7 @@ hh node
 ```
 
 This will start the local Conflux node and fund the genesis accounts on core, to have funds also on the eSpace evm you can run the following command:
+
 ```
 devkit --espace-genesis
 ```
@@ -51,7 +54,7 @@ Once the accounts are funded and the chain is running, you can invoke the deploy
 ### Deploy to eSpace
 
 ```bash
-npm run deploy_espace
+hh ignition deploy ./ignition/modules/LockModule.ts --network confluxESpaceLocal
 ```
 
 This will use [LockModule.ts](/ignition/modules/LockModule.ts) with Ignition to deploy the contract on the local eSpace.
@@ -59,7 +62,7 @@ This will use [LockModule.ts](/ignition/modules/LockModule.ts) with Ignition to 
 ### Deploy to Core
 
 ```bash
-npm run deploy_core
+hh run scripts/LockDeploy_Core.ts --network confluxCoreLocal
 ```
 
 This will use [LockDeploy_Core.ts](/scripts/LockDeploy_Core.ts) with js-conflux-sdk to deploy on the local Core.

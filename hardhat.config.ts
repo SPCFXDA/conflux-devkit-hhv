@@ -7,11 +7,9 @@ import "@nomicfoundation/hardhat-toolbox-viem";
 
 import { SetupTask, Start } from "devkit";
 
-
 task("node", "Start the local Conflux development node").setAction(async () => {
   await new Start().run({ logs: true });
 });
-
 
 export class HardHatSetup extends SetupTask {
   generateSecrets() {
@@ -19,7 +17,7 @@ export class HardHatSetup extends SetupTask {
       this.secrets = this.readSecrets();
       return;
     }
-    if(vars.has("DEPLOYER_PRIVATE_KEY") ) {
+    if (vars.has("DEPLOYER_PRIVATE_KEY")) {
       this.secrets.push(vars.get("DEPLOYER_PRIVATE_KEY"));
     }
     // Generate 5 random accounts and store their private keys (without '0x' prefix) in the secrets array
@@ -50,19 +48,19 @@ const config: HardhatUserConfig = {
         network: "confluxESpace",
         chainId: 1030,
         urls: {
-          apiURL: 'https://evmapi.confluxscan.net',
-          browserURL: 'https://evm.confluxscan.io/',
-        }
+          apiURL: "https://evmapi.confluxscan.net",
+          browserURL: "https://evm.confluxscan.io/",
+        },
       },
       {
         network: "confluxESpaceTestnet",
         chainId: 71,
         urls: {
-          apiURL: 'https://evmapi-testnet.confluxscan.io/api/',
-          browserURL: 'https://evmtestnet.confluxscan.io/',
+          apiURL: "https://evmapi-testnet.confluxscan.io/api/",
+          browserURL: "https://evmtestnet.confluxscan.io/",
         },
-      }
-    ]
+      },
+    ],
   },
   networks: {
     // View the networks that are pre-configured.
