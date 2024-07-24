@@ -6,63 +6,76 @@ This project extends Hardhat's viem sample project with Hardhat Ignition for Con
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
+- Installation
+- Usage
 
 ## Installation
 
 To install the package, use npm:
 
-```bash
-npm install
-```
+bash npm install 
 
-Adittionaly to enable hardhat cli completion use the following command:
+Additionally, to enable Hardhat CLI completion, use the following command:
 
-```
-hardhat-completion install
-```
+bash hardhat-completion install 
 
-follow the instruction and select `bash` and `y`, to reload the shell, write `bash` in the terminal.
+Follow the instructions and select bash and y. To reload the shell, write bash in the terminal.
 
 ## Usage
 
 ### Local Chain
 
-The system will auto generate 5 privatekeys, if you want to add your development private keys to the system use the following command before starting the node:
-
-```
-hh vars set DEPLOYER_PRIVATE_KEY
-```
-
-to start the development node you can use the following command:
+The system will auto-generate 5 private keys. If you want to add your development private keys to the system, use the following command before starting the node:
 
 ```bash
-hh node
+hh vars set DEPLOYER_PRIVATE_KEY 
+```
+To start the development node, you can use the following command:
+
+```bash
+hh node 
+```
+This will start the local Conflux node and fund the genesis accounts on Core. Other available commands:
+
+To stop the node:
+
+```bash
+hh node --stop 
 ```
 
-This will start the local Conflux node and fund the genesis accounts on core, to have funds also on the eSpace evm you can run the following command:
+To get the status:
 
-```
-devkit --espace-genesis
+```bash
+hh node --status 
 ```
 
-The `devkit` utility is available, for more details, refer to the [Conflux Devkit README](https://github.com/SPCFXDA/conflux-devkit/blob/main/README.md).
+To get the balance of the configured keys:
+
+```bash
+hh balance 
+```
+
+To add funds to a specific address on the local node:
+
+```bash
+hh faucet 100 0x1231231231123 
+```
+
+The devkit utility is available. For more details, refer to the [Conflux Devkit README](https://github.com/SPCFXDA/conflux-devkit/blob/main/README.md).
 
 Once the accounts are funded and the chain is running, you can invoke the deployment examples with the following commands:
 
 ### Deploy to eSpace
 
 ```bash
-hh ignition deploy ./ignition/modules/LockModule.ts --network confluxESpaceLocal
+hh ignition deploy ./ignition/modules/LockModule.ts --network confluxESpaceLocal 
 ```
-
-This will use [LockModule.ts](/ignition/modules/LockModule.ts) with Ignition to deploy the contract on the local eSpace.
+This will use LockModule.ts with Ignition to deploy the contract on the local eSpace.
 
 ### Deploy to Core
 
 ```bash
-hh run scripts/LockDeploy_Core.ts --network confluxCoreLocal
+hh run scripts/LockDeploy_Core.ts --network confluxCoreLocal 
 ```
 
-This will use [LockDeploy_Core.ts](/scripts/LockDeploy_Core.ts) with js-conflux-sdk to deploy on the local Core.
+This will use LockDeploy_Core.ts with js-conflux-sdk to deploy on the local Core.

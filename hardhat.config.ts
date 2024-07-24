@@ -4,36 +4,25 @@ import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomicfoundation/hardhat-ignition-viem";
 import "@nomicfoundation/hardhat-viem";
 import "@nomicfoundation/hardhat-toolbox-viem";
+import { hhSetup, balance, faucet, node } from "./scripts/utils";
+import { types } from "hardhat/config";
 
-import { SetupTask, Start } from "devkit";
+task("node", "Start the local Conflux development node")
+.addFlag("stop", "Stop the local Conflux development node")
+.addFlag("status", "Return the current node status")
+.setAction(node);
 
-task("node", "Start the local Conflux development node").setAction(async () => {
-  await new Start().run({ logs: true });
-});
+task("balance", "Show the balance for the configured networks").setAction(
+  balance,
+);
+task(
+  "faucet",
+  "Send CFX from the miner account to Core or Espace adresses",
+).addPositionalParam("amount")
+.addPositionalParam("address")
+.setAction(faucet);
 
-export class HardHatSetup extends SetupTask {
-  generateSecrets() {
-    if (this.secretExist()) {
-      this.secrets = this.readSecrets();
-      return;
-    }
-    if (vars.has("DEPLOYER_PRIVATE_KEY")) {
-      this.secrets.push(vars.get("DEPLOYER_PRIVATE_KEY"));
-    }
-    // Generate 5 random accounts and store their private keys (without '0x' prefix) in the secrets array
-    for (let i = 0; i < 5; i++) {
-      const randomAccount = this.randomAccount();
-      this.secrets.push(randomAccount.privateKey);
-    }
-    this.writeSecrets();
-  }
-  getSecrets() {
-    this.generateSecrets();
-    return this.secrets;
-  }
-}
-
-let deployerPrivateKey: string[] = new HardHatSetup().getSecrets();
+let deployerPrivateKey: string[] = hhSetup.getSecrets();
 
 const config: HardhatUserConfig = {
   solidity: "0.8.19",
