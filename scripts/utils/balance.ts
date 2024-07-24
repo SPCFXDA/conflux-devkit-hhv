@@ -61,12 +61,12 @@ export class Balance extends ClientTask {
             const balanceBigInt = await confluxClient.cfx.getBalance(address);
             balance = new Drip(balanceBigInt).toCFX();
           } catch (confluxError) {
-            console.error("Error: Unable to connect to network", networkName);
-            console.error("Viem client error:", (viemError as Error).message);
-            console.error(
-              "Conflux client error:",
-              (confluxError as Error).message,
-            );
+            // console.error("Error: Unable to connect to network", networkName);
+            // console.error("Viem client error:", (viemError as Error).message);
+            // console.error(
+            //   "Conflux client error:",
+            //   (confluxError as Error).message,
+            // );
             continue;
           }
         }
@@ -79,8 +79,11 @@ export class Balance extends ClientTask {
           2,
         );
       }
-
-      console.table(results);
+      if(Object.keys(results).length) {
+        console.table(results);
+      } else {
+        console.error("Unable to retrive data from", networkName);
+      }
     }
   }
 }
