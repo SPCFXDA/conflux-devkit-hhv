@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+
 import {
-  GenesisList,
-  Faucet,
-  GenesisToeSpace,
   Balance,
-  Status,
-  Start,
-  Stop,
+  Faucet,
+  GenesisList,
+  GenesisToeSpace,
   Logs,
+  Start,
+  Status,
   Stderr,
+  Stop,
 } from "./index";
+
 const program = new Command();
 
 program

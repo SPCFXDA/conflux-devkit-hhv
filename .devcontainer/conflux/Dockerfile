@@ -12,7 +12,6 @@ FROM ${BASE_IMAGE} AS devkit
 ARG CONFLUX_NODE_ROOT="/opt/conflux"
 ARG CONFIG_PATH="${CONFLUX_NODE_ROOT}/develop.toml"
 ARG SECRETS_PATH="${CONFLUX_NODE_ROOT}/genesis_secrets.txt"
-ENV TEMPLATES_PATH="/opt/tempaltes"
 
 # Install necessary dependencies and clean up apt lists to reduce image size
 RUN apt-get update && apt-get install -y --no-install-recommends \ 
@@ -30,7 +29,7 @@ COPY --from=release /bin/cfx-gen-dot /bin/cfx-gen-dot
 COPY --from=release /bin/cfxstore /bin/cfxstore
 
 # Create necessary directories for Conflux node operation
-RUN mkdir -p ${CONFLUX_NODE_ROOT} ${TEMPLATES_PATH}
+RUN mkdir -p ${CONFLUX_NODE_ROOT}
 
 # Set environment variables for chain IDs and configuration paths
 ENV CHAIN_ID=2029
@@ -42,7 +41,6 @@ ENV DEVKIT_PATH="/opt/devkit"
 
 # Add utility scripts and templates to the image
 ADD devkit ${DEVKIT_PATH}
-ADD templates ${TEMPLATES_PATH}
 
 # Define build arguments for user creation
 ARG USERNAME=node

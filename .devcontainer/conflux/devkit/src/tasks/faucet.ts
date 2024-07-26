@@ -1,7 +1,8 @@
-import { ClientTask } from "./task";
 import { readFileSync } from "fs";
+import { Drip, address } from "js-conflux-sdk";
 import { isAddress } from "viem";
-import { address, Drip } from "js-conflux-sdk";
+
+import { ClientTask } from "./task";
 
 export class Faucet extends ClientTask {
   async execute(options: any) {

@@ -79,7 +79,7 @@ export class Balance extends ClientTask {
           2,
         );
       }
-      if(Object.keys(results).length) {
+      if (Object.keys(results).length) {
         console.table(results);
       } else {
         console.error("Unable to retrive data from", networkName);

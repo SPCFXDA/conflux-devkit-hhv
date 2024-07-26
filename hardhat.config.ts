@@ -1,26 +1,23 @@
-import { task, vars } from "hardhat/config";
+import { task } from "hardhat/config";
 import type { HardhatUserConfig } from "hardhat/types";
 import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomicfoundation/hardhat-ignition-viem";
 import "@nomicfoundation/hardhat-viem";
 import "@nomicfoundation/hardhat-toolbox-viem";
 import { hhSetup, balance, faucet, node } from "./scripts/utils";
-import { types } from "hardhat/config";
 
 task("node", "Start the local Conflux development node")
-.addFlag("stop", "Stop the local Conflux development node")
-.addFlag("status", "Return the current node status")
-.setAction(node);
+  .addFlag("stop", "Stop the local Conflux development node")
+  .addFlag("status", "Return the current node status")
+  .setAction(node);
 
 task("balance", "Show the balance for the configured networks").setAction(
   balance,
 );
-task(
-  "faucet",
-  "Send CFX from the miner account to Core or Espace adresses",
-).addPositionalParam("amount")
-.addPositionalParam("address")
-.setAction(faucet);
+task("faucet", "Send CFX from the miner account to Core or Espace adresses")
+  .addPositionalParam("amount")
+  .addPositionalParam("address")
+  .setAction(faucet);
 
 let deployerPrivateKey: string[] = hhSetup.getSecrets();
 
