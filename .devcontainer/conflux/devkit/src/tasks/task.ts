@@ -89,7 +89,7 @@ export class SetupTask extends BaseTask {
   }
 
   async run(options: any) {
-    this.setup()
+    this.setup();
     try {
       return await this.execute(options);
     } catch (error: any) {
@@ -321,7 +321,7 @@ export class ClientTask extends NodeTask {
   }
 
   async run(options: any) {
-    this.setup()
+    this.setup();
     try {
       this.coreClient = this.getCoreClient();
       this.eSpaceClient = this.getESpaceClient();
@@ -386,8 +386,8 @@ export class ClientTask extends NodeTask {
     const timer = (ms: number | undefined) =>
       new Promise((res) => setTimeout(res, ms));
     let coreClient: Conflux;
-    if(this.coreClient) {
-      coreClient = this.coreClient
+    if (this.coreClient) {
+      coreClient = this.coreClient;
     } else {
       this.setup();
       coreClient = this.getCoreClient();

@@ -18,6 +18,6 @@ export async function node(
   }
   await cfxNode.start();
   console.log("bootstrap...");
-  console.log(await cfxNode.status());
+  await cfxNode.status();
   console.log("Node started!");
 }

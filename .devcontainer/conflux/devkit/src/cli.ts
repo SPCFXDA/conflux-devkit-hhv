@@ -65,7 +65,7 @@ async function main() {
       try {
         console.log(await cfxNode.status());
       } catch (error: any) {
-        console.log(error)
+        console.log(error);
       }
       break;
     case "logs":

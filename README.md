@@ -13,7 +13,9 @@ This project extends Hardhat's viem sample project with Hardhat Ignition for Con
 
 To install the package, use npm:
 
-bash npm install
+```bash
+npm install
+```
 
 Additionally, to enable Hardhat CLI completion, use the following command:
 
