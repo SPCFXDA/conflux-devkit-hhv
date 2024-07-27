@@ -70,7 +70,7 @@ WORKDIR /workspaces/
 RUN mkdir -p ~/.local/bin \
     && npm config set prefix '~/.local/' \ 
     && npm install -g npm@latest \ 
-    && (cd ${DEVKIT_PATH} && npm run local_install) } \
+    && (cd ${DEVKIT_PATH} && npm run local_install) \
     && npm install --global hardhat-shorthand   
 
 # Expose necessary ports for the Conflux node
