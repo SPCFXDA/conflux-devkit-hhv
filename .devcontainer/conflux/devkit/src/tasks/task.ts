@@ -89,8 +89,8 @@ export class SetupTask extends BaseTask {
   }
 
   async run(options: any) {
+    this.setup()
     try {
-      await this.setup();
       return await this.execute(options);
     } catch (error: any) {
       if (error.errno === -111) {
@@ -227,6 +227,7 @@ export class NodeTask extends SetupTask {
   }
 
   async start() {
+    await this.setup();
     const pid = await this.getPid();
     if (pid) {
       console.log(`Node is already running (PID: ${pid}), not starting again.`);
@@ -320,8 +321,8 @@ export class ClientTask extends NodeTask {
   }
 
   async run(options: any) {
+    this.setup()
     try {
-      await this.setup();
       this.coreClient = this.getCoreClient();
       this.eSpaceClient = this.getESpaceClient();
       this.crossSpaceCall = this.coreClient.InternalContract("CrossSpaceCall");
@@ -384,8 +385,13 @@ export class ClientTask extends NodeTask {
     // Returns a Promise that resolves after "ms" Milliseconds
     const timer = (ms: number | undefined) =>
       new Promise((res) => setTimeout(res, ms));
-    const stderr = this.stderr;
-    const coreClient = this.coreClient;
+    let coreClient: Conflux;
+    if(this.coreClient) {
+      coreClient = this.coreClient
+    } else {
+      this.setup();
+      coreClient = this.getCoreClient();
+    }
     async function checkStatus() {
       for (var i = 1; i <= 5; i++) {
         try {

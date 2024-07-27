@@ -4,7 +4,7 @@ import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomicfoundation/hardhat-ignition-viem";
 import "@nomicfoundation/hardhat-viem";
 import "@nomicfoundation/hardhat-toolbox-viem";
-import { hhSetup, balance, faucet, node } from "./scripts/utils";
+import { hhSetup, balance, faucet, node, accounts } from "./scripts/utils";
 
 task("node", "Start the local Conflux development node")
   .addFlag("stop", "Stop the local Conflux development node")
@@ -14,6 +14,9 @@ task("node", "Start the local Conflux development node")
 task("balance", "Show the balance for the configured networks").setAction(
   balance,
 );
+
+task("accounts", "Show the available accounts").setAction(accounts);
+
 task("faucet", "Send CFX from the miner account to Core or Espace adresses")
   .addPositionalParam("amount")
   .addPositionalParam("address")

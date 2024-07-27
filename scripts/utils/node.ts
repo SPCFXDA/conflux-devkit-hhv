@@ -1,7 +1,7 @@
-import { Start, Status } from "devkit";
+import { ClientTask } from "devkit";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
-const dev_node = new Start();
+const cfxNode = new ClientTask();
 export async function node(
   taskArguments: { stop: boolean; status: boolean },
   hre: HardhatRuntimeEnvironment,
@@ -9,12 +9,15 @@ export async function node(
 ) {
   const _ = runSuper;
   if (taskArguments.stop) {
-    await dev_node.stop();
+    await cfxNode.stop();
     return;
   }
   if (taskArguments.status) {
-    await new Status().run({});
+    console.log(await cfxNode.status());
     return;
   }
-  await dev_node.run({ logs: true });
+  await cfxNode.start();
+  console.log("bootstrap...");
+  console.log(await cfxNode.status());
+  console.log("Node started!");
 }

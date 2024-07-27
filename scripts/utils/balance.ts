@@ -101,7 +101,7 @@ export async function balance(
 
   const filteredNetworks = networkNames.reduce(
     (acc, networkName) => {
-      acc[networkName] = networks[networkName];
+      acc[networkName] = networks[networkName] as NetworkConfig;
       return acc;
     },
     {} as { [key: string]: NetworkConfig },

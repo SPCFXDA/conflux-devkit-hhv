@@ -69,3 +69,5 @@ export class Faucet extends ClientTask {
     return !isNaN(parseFloat(value)) && isFinite(parseFloat(value));
   }
 }
+
+export const faucet = new Faucet();

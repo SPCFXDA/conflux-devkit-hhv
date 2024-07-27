@@ -38,3 +38,5 @@ export class GenesisList extends ClientTask {
     });
   }
 }
+
+export const genesisList = new GenesisList();

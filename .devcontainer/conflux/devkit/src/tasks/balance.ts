@@ -36,3 +36,5 @@ export class Balance extends ClientTask {
     this.coreClient!.close();
   }
 }
+
+export const balance = new Balance();
