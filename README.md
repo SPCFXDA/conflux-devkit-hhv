@@ -2,12 +2,15 @@
 
 ## Description
 
-This project extends Hardhat's viem sample project with Hardhat Ignition for Conflux eSpace and js-conflux-sdk for Conflux Core.
+This project enhances Hardhat's viem sample project with Hardhat Ignition for Conflux eSpace and js-conflux-sdk for Conflux Core. It is based on the Conflux DevKit devcontainer. For more details, refer to the [Conflux Devkit README](https://github.com/SPCFXDA/conflux-devkit/blob/main/README.md). You can use this repository in GitHub Codespaces or with VS Code devcontainer support.
 
 ## Table of Contents
 
-- Installation
-- Usage
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Local Chain](#local-chain)
+  - [Deploy to eSpace](#deploy-to-espace)
+  - [Deploy to Core](#deploy-to-core)
 
 ## Installation
 
@@ -23,7 +26,7 @@ Additionally, to enable Hardhat CLI completion, use the following command:
 hardhat-completion install
 ```
 
-Follow the instructions and select bash and y. To reload the shell, write bash in the terminal.
+Follow the instructions and select `bash` and `y`. To reload the shell, type `bash` in the terminal.
 
 ## Usage
 
@@ -35,13 +38,15 @@ The system will auto-generate 5 private keys. If you want to add your developmen
 hh vars set DEPLOYER_PRIVATE_KEY
 ```
 
-To start the development node, you can use the following command:
+To start the development node, use:
 
 ```bash
 hh node
 ```
 
-This will start the local Conflux node and fund the genesis accounts on Core. Other available commands:
+This will start the local Conflux node and fund the genesis accounts on Core. 
+
+Other available commands:
 
 To stop the node:
 
@@ -67,22 +72,28 @@ To add funds to a specific address on the local node:
 hh faucet 100 0x1231231231123
 ```
 
-The devkit utility is available. For more details, refer to the [Conflux Devkit README](https://github.com/SPCFXDA/conflux-devkit/blob/main/README.md).
+To list all available genesis accounts:
 
-Once the accounts are funded and the chain is running, you can invoke the deployment examples with the following commands:
+```bash
+hh accounts
+```
+
+Once the accounts are funded and the chain is running, you can deploy contracts using the following commands:
 
 ### Deploy to eSpace
+
+To deploy a contract on the local eSpace using Ignition, use:
 
 ```bash
 hh ignition deploy ./ignition/modules/LockModule.ts --network confluxESpaceLocal
 ```
 
-This will use LockModule.ts with Ignition to deploy the contract on the local eSpace.
-
 ### Deploy to Core
+
+To deploy a contract on the local Core using js-conflux-sdk, use:
 
 ```bash
 hh run scripts/LockDeploy_Core.ts --network confluxCoreLocal
 ```
 
-This will use LockDeploy_Core.ts with js-conflux-sdk to deploy on the local Core.
+This will use `LockModule.ts` and `LockDeploy_Core.ts` to deploy the contracts on eSpace and Core, respectively.
