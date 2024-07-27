@@ -18,8 +18,8 @@ task("balance", "Show the balance for the configured networks").setAction(
 task("accounts", "Show the available accounts").setAction(accounts);
 
 task("faucet", "Send CFX from the miner account to Core or Espace adresses")
-  .addPositionalParam("amount")
-  .addPositionalParam("address")
+  .addOptionalPositionalParam("amount")
+  .addOptionalPositionalParam("address")
   .setAction(faucet);
 
 let deployerPrivateKey: string[] = hhSetup.getSecrets();

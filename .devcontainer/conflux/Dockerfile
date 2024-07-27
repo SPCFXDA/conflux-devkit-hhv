@@ -39,13 +39,14 @@ ENV CONFIG_PATH=${CONFIG_PATH}
 ENV SECRETS_PATH=${SECRETS_PATH}
 ENV DEVKIT_PATH="/opt/devkit"
 
-# Add utility scripts and templates to the image
-ADD devkit ${DEVKIT_PATH}
 
 # Define build arguments for user creation
 ARG USERNAME=node
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+
+# Add utility scripts and templates to the image
+COPY devkit ${DEVKIT_PATH}
 
 # Create a new user if $USERNAME doesn't exist
 RUN id -u $USERNAME >/dev/null 2>&1 || (groupadd --gid $USER_GID $USERNAME \
@@ -56,8 +57,8 @@ RUN echo "$USERNAME ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
 # Change ownership of the Conflux node directory to the created user
-RUN chown -R ${USER_UID}:${USER_GID} ${CONFLUX_NODE_ROOT} \
-    && chown -R ${USER_UID}:${USER_GID} ${DEVKIT_PATH}
+RUN chown -R ${USERNAME}:${USERNAME} ${CONFLUX_NODE_ROOT} \
+    && chown -R ${USERNAME}:${USERNAME} ${DEVKIT_PATH}
 
 # Switch to the created user context
 USER $USERNAME  
@@ -68,10 +69,9 @@ WORKDIR /workspaces/
 # Configure npm and install devkit globally
 RUN mkdir -p ~/.local/bin \
     && npm config set prefix '~/.local/' \ 
-    && npm install -g npm@latest \
-    && (cd ${DEVKIT_PATH} && npm install && npm run build && npm install -g .) \
-    && npm install --global hardhat-shorthand
-
+    && npm install -g npm@latest \ 
+    && (cd ${DEVKIT_PATH} && npm run local_install) } \
+    && npm install --global hardhat-shorthand   
 
 # Expose necessary ports for the Conflux node
 EXPOSE 3000 12535 12537 8545 8546
